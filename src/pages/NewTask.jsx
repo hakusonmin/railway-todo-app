@@ -4,7 +4,7 @@ import axios from "axios";
 import { url } from "../const";
 import { Header } from "../components/Header";
 import "./newTask.css"
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const NewTask = () => {
   const [selectListId, setSelectListId] = useState();
@@ -13,7 +13,7 @@ export const NewTask = () => {
   const [detail, setDetail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [cookies] = useCookies();
-  const history = useHistory();
+  const navigate = useNavigate();
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleSelectList = (id) => setSelectListId(id);
@@ -24,13 +24,13 @@ export const NewTask = () => {
       done: false,
     };
 
-    axios.post(`${url}/lists/${selectListId}/tasks`, data, {
+    axios.post(`/lists/${selectListId}/tasks`, data, {
         headers: {
           authorization: `Bearer ${cookies.token}`
         }
     })
     .then(() => {
-      history.push("/");
+      navigate("/");
     })
     .catch((err) => {
       setErrorMessage(`タスクの作成に失敗しました。${err}`);
@@ -38,7 +38,7 @@ export const NewTask = () => {
   }
 
   useEffect(() => {
-    axios.get(`${url}/lists`, {
+    axios.get(`/lists`, {
       headers: {
         authorization: `Bearer ${cookies.token}`
       }

@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { url } from "../const";
 import "./editList.css";
 
 export const EditList = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { listId } = useParams();
   const [title, setTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -18,13 +18,13 @@ export const EditList = () => {
       title: title
     }
 
-    axios.put(`${url}/lists/${listId}`, data, {
+    axios.put(`/lists/${listId}`, data, {
       headers: {
         authorization: `Bearer ${cookies.token}`
       }
     })
     .then(() => {
-      history.push("/");
+      navigate("/");
     })
     .catch((err) => {
     setErrorMessage(`更新に失敗しました。 ${err}`);
@@ -32,13 +32,13 @@ export const EditList = () => {
   }
 
   const onDeleteList = () => {
-    axios.delete(`${url}/lists/${listId}`, {
+    axios.delete(`/lists/${listId}`, {
       headers: {
         authorization: `Bearer ${cookies.token}`
       }
     })
     .then(() => {
-      history.push("/");
+      navigate("/");
     })
     .catch((err) => {
       setErrorMessage(`削除に失敗しました。${err}`);
@@ -46,7 +46,7 @@ export const EditList = () => {
   }
 
   useEffect(() => {
-    axios.get(`${url}/lists/${listId}`, {
+    axios.get(`/lists/${listId}`, {
       headers: {
         authorization: `Bearer ${cookies.token}`
       }

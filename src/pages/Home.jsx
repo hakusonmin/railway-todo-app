@@ -16,7 +16,7 @@ export const Home = () => {
   const [cookies] = useCookies();
   const handleIsDoneDisplayChange = (e) => setIsDoneDisplay(e.target.value);
   useEffect(() => {
-    axios.get(`${url}/lists`, {
+    axios.get(`/lists`, {
       headers: {
         authorization: `Bearer ${cookies.token}`
       }
@@ -33,7 +33,7 @@ export const Home = () => {
     const listId = lists[0]?.id
     if(typeof listId !== "undefined"){
       setSelectListId(listId)
-      axios.get(`${url}/lists/${listId}/tasks`, {
+      axios.get(`/lists/${listId}/tasks`, {
         headers: {
           authorization: `Bearer ${cookies.token}`
         }
@@ -49,7 +49,7 @@ export const Home = () => {
 
   const handleSelectList = (id) => {
     setSelectListId(id);
-    axios.get(`${url}/lists/${id}/tasks`, {
+    axios.get(`/lists/${id}/tasks`, {
       headers: {
         authorization: `Bearer ${cookies.token}`
       }

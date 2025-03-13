@@ -3,11 +3,11 @@ import { Header } from "../components/Header";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { url } from "../const";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./editTask.css"
 
 export const EditTask = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { listId, taskId } = useParams();
   const [cookies] = useCookies();
   const [title, setTitle] = useState("");
@@ -25,14 +25,14 @@ export const EditTask = () => {
       done: isDone
     }
 
-    axios.put(`${url}/lists/${listId}/tasks/${taskId}`, data, {
+    axios.put(`/lists/${listId}/tasks/${taskId}`, data, {
       headers: {
         authorization: `Bearer ${cookies.token}`
       }
     })
     .then((res) => {
       console.log(res.data)
-      history.push("/");
+      navigate("/");
     })
     .catch((err) => {
       setErrorMessage(`更新に失敗しました。${err}`);
@@ -40,13 +40,13 @@ export const EditTask = () => {
   }
 
   const onDeleteTask = () => {
-    axios.delete(`${url}/lists/${listId}/tasks/${taskId}`, {
+    axios.delete(`/lists/${listId}/tasks/${taskId}`, {
       headers: {
         authorization: `Bearer ${cookies.token}`
       }
     })
     .then(() => {
-      history.push("/");
+      navigate("/");
     })
     .catch((err) => {
       setErrorMessage(`削除に失敗しました。${err}`);
@@ -54,7 +54,7 @@ export const EditTask = () => {
   }
 
   useEffect(() => {
-    axios.get(`${url}/lists/${listId}/tasks/${taskId}`, {
+    axios.get(`/lists/${listId}/tasks/${taskId}`, {
       headers: {
         authorization: `Bearer ${cookies.token}`
       }
