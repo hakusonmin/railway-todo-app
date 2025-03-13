@@ -13,6 +13,7 @@
     "react-dom": "*",
     "react-redux": "*",
     "react-router-dom": "*",
+    "sass": "^1.85.1",
     "web-vitals": "*"
   },
   "devDependencies": {
