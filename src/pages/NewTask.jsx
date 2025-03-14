@@ -11,17 +11,22 @@ export const NewTask = () => {
   const [lists, setLists] = useState([]);
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
+  const [limit, setLimit] = useState(""); 
   const [errorMessage, setErrorMessage] = useState("");
   const [cookies] = useCookies();
   const navigate = useNavigate();
+
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleSelectList = (id) => setSelectListId(id);
+  const handleLimitChange = (e) => setLimit(e.target.value);
+
   const onCreateTask = () => {
     const data = {
       title: title,
       detail: detail,
       done: false,
+      limit: new Date(limit).toISOString(), 
     };
 
     axios.post(`/lists/${selectListId}/tasks`, data, {
@@ -58,19 +63,28 @@ export const NewTask = () => {
       <main className="new-task">
         <h2>タスク新規作成</h2>
         <p className="error-message">{errorMessage}</p>
+
         <form className="new-task-form">
+          
           <label>リスト</label><br />
           <select onChange={(e) => handleSelectList(e.target.value)} className="new-task-select-list">
             {lists.map((list, key) => (
               <option key={key} className="list-item" value={list.id}>{list.title}</option>
             ))}
           </select><br />
+
           <label>タイトル</label><br />
           <input type="text" onChange={handleTitleChange} className="new-task-title" /><br />
+
           <label>詳細</label><br />
           <textarea type="text" onChange={handleDetailChange} className="new-task-detail" /><br />
+
+          <label>期限日時</label><br />
+          <input type="datetime-local" onChange={handleLimitChange} className="new-task-limit" /><br />
+
           <button type="button" className="new-task-button" onClick={onCreateTask}>作成</button>
         </form>
+
       </main>
     </div>
   )
