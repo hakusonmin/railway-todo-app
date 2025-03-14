@@ -53,7 +53,6 @@ export const SignUp = () => {
     };
     return (
         <div>
-            <Header />
             <main className="signup">
                 <h2>新規作成</h2>
                 <p className="error-message">{errorMessage}</p>

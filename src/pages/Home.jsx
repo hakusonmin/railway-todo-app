@@ -63,11 +63,9 @@ export const Home = () => {
 
   return (
     <div>
-      <Header />
       <main className="taskList">
         <p className="error-message">{errorMessage}</p>
         <div>
-
           <div className="list-header">
             <h2>リスト一覧</h2>
             <div className="list-menu">

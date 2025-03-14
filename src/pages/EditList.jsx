@@ -62,7 +62,6 @@ export const EditList = () => {
 
   return (
     <div>
-      <Header />
       <main className="edit-list">
         <h2>リスト編集</h2>
         <p className="error-message">{errorMessage}</p>

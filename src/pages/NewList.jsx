@@ -32,7 +32,6 @@ export const NewList = () => {
 
   return (
     <div>
-      <Header />
       <main className="new-list">
         <h2>リスト新規作成</h2>
         <p className="error-message">{errorMessage}</p>

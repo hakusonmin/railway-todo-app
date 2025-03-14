@@ -59,13 +59,12 @@ export const NewTask = () => {
 
   return (
     <div>
-      <Header />
       <main className="new-task">
         <h2>タスク新規作成</h2>
         <p className="error-message">{errorMessage}</p>
 
         <form className="new-task-form">
-          
+
           <label>リスト</label><br />
           <select onChange={(e) => handleSelectList(e.target.value)} className="new-task-select-list">
             {lists.map((list, key) => (

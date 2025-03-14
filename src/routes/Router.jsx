@@ -9,6 +9,7 @@ import { NewList } from "../pages/NewList";
 import { EditTask } from "../pages/EditTask";
 import { SignUp } from "../pages/SignUp";
 import { EditList } from "../pages/EditList";
+import Layout from "../components/Layout";
 
 export const Router = () => {
     const auth = useSelector((state) => state.auth.isSignIn);
@@ -16,6 +17,7 @@ export const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
+            <Route element={<Layout />}>
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/signup" element={<SignUp />} />
                 {auth ? (
@@ -30,6 +32,7 @@ export const Router = () => {
                     <Route path="*" element={<Navigate to="/signin" />} />
                 )}
                 <Route element={< NotFound />} />
+              </Route>
             </Routes>
         </BrowserRouter>
     );

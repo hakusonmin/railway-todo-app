@@ -35,7 +35,6 @@ export const SignIn = () => {
 
   return (
     <div>
-      <Header/>
       <main className="signin">
         <h2>サインイン</h2>
         <p className="error-message">{errorMessage}</p>
