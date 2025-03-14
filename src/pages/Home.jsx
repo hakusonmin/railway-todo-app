@@ -54,6 +54,13 @@ export const Home = () => {
     setSelectListId(id);
   }
 
+  //これで対象のリストに移動してさらにEnterされていた場合handleSelectListを発火する
+  const handleKeyDown = (e, id) => {
+    if (e.key === "Enter" || e.key === " ") {
+      handleSelectList(id);
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -69,14 +76,18 @@ export const Home = () => {
             </div>
           </div>
 
-          <ul className="list-tab">
+          <ul className="list-tab" role="tablist">
             {lists.map((list, key) => {
               const isActive = list.id === selectListId;
               return (
                 <li 
                   key={key}
                   className={`list-tab-item ${isActive ? "active" : ""}`}
+                  role="tab"
+                  aria-selected={isActive}
+                  tabIndex="0" 
                   onClick={() => handleSelectList(list.id)}
+                  onKeyDown={(e) => handleKeyDown(e, list.id)}
                 >
                   {list.title}
                 </li>
